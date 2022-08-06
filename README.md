@@ -13,6 +13,8 @@ $ open http://localhost:7001/
 ```
 
 ### 部署生产
+#### 构建打包
+tar -zcvf ../release.tgz .
 
 ```bash
 $ npm start
