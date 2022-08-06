@@ -30,7 +30,7 @@ module.exports = appInfo => {
     users: [
       'oAtrW5od0BJd6CZ3a8UvjKHGdO9k'
     ],
-    daily: 'UgXlEzkcxm3Il1BWyKhEjro2Y2J2rtVx2DVDR-M_flQ', // 普通模板
+    daily: 'DNx8F3zDiCOZRWnI1p714DbHw9wShrtCwhX_Wji0Vh4', // 普通模板
     birthday: 'WbplJKGOWOLzUJuM0zqx6jw4DdwO1ZH9E2T_kerTj4A'
   };
 
@@ -56,4 +56,10 @@ module.exports = appInfo => {
     ...config,
     ...userConfig,
   };
+};
+
+exports.alinode = {
+  // 从 `Node.js 性能平台` 获取对应的接入参数
+  appid: '91364',
+  secret: '8e211f875ab87fefc00e885c5ccce60c96389966',
 };

@@ -7,3 +7,9 @@ module.exports = {
   //   enable: true,
   // }
 };
+
+// config/plugin.js
+exports.alinode = {
+  enable: true,
+  package: 'egg-alinode',
+};
