@@ -19,41 +19,33 @@ module.exports = appInfo => {
   config.middleware = [];
   // 天气接口配置
   config.weather = {
-    appid: '*****************',
-    appsecret: '************',
+    appid: '72411552',
+    appsecret: 'f1XQV05H'
   };
   // 测试 微信公众号
   config.weChat = {
-    appld: '*****',
-    secret: '*****',
+    appld: 'wxa041c01116941f85',
+    secret: 'ffe187bf1164e559a5e9cc89895417da',
     // 用户的openid
     users: [
-      '******',
-      '******',
-      '******',
+      'oAtrW5od0BJd6CZ3a8UvjKHGdO9k'
     ],
-    daily: '********************', // 普通模板
-    marry: '********************', // 结婚纪念日模板
-    wageDay: '*****************', // 工资日模板
-    birthday: '**************************', // 生日模板
+    daily: 'UgXlEzkcxm3Il1BWyKhEjro2Y2J2rtVx2DVDR-M_flQ', // 普通模板
+    birthday: 'WbplJKGOWOLzUJuM0zqx6jw4DdwO1ZH9E2T_kerTj4A'
   };
 
   // 时间
   config.time = {
     wageDay: 15, // 工资日
-    love: '2017-06-09', // 相爱日期
-    marry: '2020-11-27', // 结婚纪念日
+    love: '2015-05-24', // 相爱日期
     // 生日配置
-    // 老家过阴历生日，这里暂时写死
     birthday: {
-      2021: '2021-04-21',
-      2022: '2022-01-06',
-      2023: '2023-02-25',
-      2024: '2024-03-14',
-      2025: '2025-04-03',
-      2026: '2026-05-22',
+      2022: '2022-05-20',
+      2023: '2023-05-10',
+      2024: '2024-04-29',
+      2025: '2025-04-18'
     }, // 每年生日 阳历
-    birthYear: 1995,
+    birthYear: 1997,
   };
   // add your user config here
   const userConfig = {

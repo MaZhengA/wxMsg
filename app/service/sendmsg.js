@@ -49,45 +49,17 @@ class sendmsg extends Service {
   async getTemplateData() {
     const { app } = this;
     // 判断所需 模板
-    // 发工资模板 getWageDay == 0       wageDay
-    // 结婚纪念日模板 getMarryDay == 0  marry
     // 生日 模板 getbirthday == 0       birthday
     // 正常模板                         daily
 
     const wageDay = this.getWageDay();
-    const marry = this.getMarryDay();
     const birthday = this.getbirthday();
+    console.log(birthday, 'birthday====')
     const data = {
       topcolor: '#FF0000',
       data: {},
     };
-    // 发工资模板
-    if (!wageDay) {
-      data.template_id = app.config.weChat.wageDay;
-      data.data = {
-        dateTime: {
-          value: this.getDatetime(),
-          color: '#cc33cc',
-        },
-      };
-    } else if (!marry) {
-      // 结婚纪念日模板
-      data.template_id = app.config.weChat.marry;
-      data.data = {
-        dateTime: {
-          value: this.getDatetime(),
-          color: '#cc33cc',
-        },
-        anniversary: {
-          value: this.getMarryYear(),
-          color: '#ff3399',
-        },
-        year: {
-          value: this.getLoveYear(),
-          color: '#ff3399',
-        },
-      };
-    } else if (!birthday) {
+    if (!birthday) {
       // 生日模板
       data.template_id = app.config.weChat.birthday;
       data.data = {
@@ -103,6 +75,7 @@ class sendmsg extends Service {
     } else {
       // 正常模板
       data.template_id = app.config.weChat.daily;
+      console.log(data, 'data====106')
       // 获取天气
       const getWeather = await this.getWeather();
       // 获取每日一句
@@ -122,10 +95,6 @@ class sendmsg extends Service {
         },
         birthday: {
           value: birthday,
-          color: '#ff0033',
-        },
-        marry: {
-          value: marry,
           color: '#ff0033',
         },
         wea: {
@@ -161,7 +130,7 @@ class sendmsg extends Service {
     return data;
   }
   // 获取天气
-  async getWeather(city = '深泽') {
+  async getWeather(city = '杭州') {
     const { app } = this;
     const url = 'https://www.tianqiapi.com/api?unescape=1&version=v6&appid=' + app.config.weather.appid + '&appsecret=' + app.config.weather.appsecret + '&city=' + city;
     const result = await this.ctx.curl(url, {
@@ -210,27 +179,6 @@ class sendmsg extends Service {
     }
     return resultDay;
   }
-  // 获取距离 下次结婚纪念日还有多少天
-  getMarryDay() {
-    const { app } = this;
-    const marry = app.config.time.marry;
-    // 获取当前时间戳
-    const now = moment(moment().format('YYYY-MM-DD')).valueOf();
-    // 获取纪念日 月-日
-    const mmdd = moment(marry).format('-MM-DD');
-    // 获取当年
-    const y = moment().year();
-    // 获取今年结婚纪念日时间戳
-    const nowTimeNumber = moment(y + mmdd).valueOf();
-    // 判断 今天的结婚纪念日 有没有过，如果已经过去（now>nowTimeNumber），resultMarry日期为明年的结婚纪念日
-    // 如果还没到，则 结束日期为今年的结婚纪念日
-    let resultMarry = nowTimeNumber;
-    if (now > nowTimeNumber) {
-      // 获取明年纪念日
-      resultMarry = moment((y + 1) + mmdd).valueOf();
-    }
-    return moment(moment(resultMarry).format()).diff(moment(now).format(), 'day');
-  }
   // 获取 距离 下次生日还有多少天
   getbirthday() {
     const { app } = this;
@@ -258,23 +206,11 @@ class sendmsg extends Service {
     const loveDay = app.config.time.love;
     return moment(moment().format('YYYY-MM-DD')).diff(loveDay, 'day');
   }
-  // 获取 相恋几年了
-  getLoveYear() {
-    const { app } = this;
-    const loveDay = app.config.time.love;
-    return moment().year() - moment(loveDay).year();
-  }
   // 获取是第几个生日
   getBirthYear() {
     const { app } = this;
     const birthYear = app.config.time.birthYear;
     return moment().year() - birthYear;
-  }
-  // 获取是第几个结婚纪念日
-  getMarryYear() {
-    const { app } = this;
-    const marry = app.config.time.marry;
-    return moment().year() - moment(marry).year();
   }
   // 获取 每日一句
   async getOneSentence() {
